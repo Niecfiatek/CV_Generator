@@ -33,6 +33,11 @@
             padding: 8px;
             border-radius: 4px;
             border: 1px solid #ccc;
+            resize: none;
+            overflow: hidden;
+            min-height: 50px;
+            box-sizing: border-box;
+            margin-right: 8px;
         }
 
         button {
@@ -64,5 +69,20 @@
     </form>
     <p th:text="${message}"></p>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+            // Dynamiczne rozszerzanie pola
+            textarea.addEventListener('input', function () {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+
+            // Inicjalne ustawienie wysokości
+            textarea.dispatchEvent(new Event('input'));
+        });
+    });
+</script>
 </body>
 </html>

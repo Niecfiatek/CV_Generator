@@ -11,7 +11,7 @@ public class ControllerCV {
 
     @RequestMapping("/")
     public String cvForm() {
-        return "cv_form";
+        return "cv";
     }
 
     @PostMapping("/submit")

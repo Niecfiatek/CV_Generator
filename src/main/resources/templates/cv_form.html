@@ -12,9 +12,18 @@
         <input type="email" name="email" placeholder="Email" required>
         <input type="text" name="adres" placeholder="Adres zamieszkania" required>
         <input type="text" name="phone" placeholder="Telefon" required>
-        <textarea name="experience" placeholder="Doświadczenie zawodowe" required></textarea>
+
+        <div class="tooltip">
+            <textarea name="experience" placeholder="Doświadczenie zawodowe" required></textarea>
+            <span class="tooltiptext">
+            Format: rok_start - rok_koniec, nazwa firmy, stanowisko
+        </span>
+        </div>
+
         <textarea name="education" placeholder="Wykształcenie" required></textarea>
         <textarea name="skills" placeholder="Umiejętności" required></textarea>
+        <textarea name="languages" placeholder="Języki" required></textarea>
+        <textarea name="interests" placeholder="Zainteresowania" required></textarea>
         <button type="submit">Zapisz CV</button>
     </form>
 </div>

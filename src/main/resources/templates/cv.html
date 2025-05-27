@@ -82,61 +82,31 @@
 
     <div class="about">
       <h2 class="title2">Doświadczenie zawodowe</h2>
-      <div class="box">
+
+      <div class="box" th:each="exp : ${experienceList}">
         <div class="year_company">
-          <h5>Rok_start - Rok_koniec</h5>
-          <h5>Nazwa firmy</h5>
+          <h5 th:text="${exp.years}">Rok_start - Rok_koniec</h5>
+          <h5 th:text="${exp.company}">Nazwa firmy</h5>
         </div>
         <div class="text">
-          <h4>Stanowisko</h4>
-          <p th:text="${experience}">Opis obowiazkow, pracy. Opis obowiazkow, pracy. Opis obowiazkow, pracy.</p>
-        </div>
-      </div>
-      <div class="box">
-        <div class="year_company">
-          <h5>Rok_start - Rok_koniec</h5>
-          <h5>Nazwa firmy</h5>
-        </div>
-        <div class="text">
-          <h4>Stanowisko</h4>
-          <p>Opis obowiazkow, pracy. Opis obowiazkow, pracy. Opis obowiazkow, pracy.</p>
-        </div>
-      </div>
-      <div class="box">
-        <div class="year_company">
-          <h5>Rok_start - Rok_koniec</h5>
-          <h5>Nazwa firmy</h5>
-        </div>
-        <div class="text">
-          <h4>Stanowisko</h4>
-          <p>Opis obowiazkow, pracy. Opis obowiazkow, pracy. Opis obowiazkow, pracy.</p>
+          <h4 th:text="${exp.position}">Stanowisko</h4>
         </div>
       </div>
     </div>
 
     <div class="about skills">
       <h2 class="title2">Umiejętności</h2>
-      <div class="box">
-        <h4 th:text="${skills}">Podstawy Języka C++</h4>
-      </div>
-      <div class="box">
-        <h4>Język Java</h4>
-      </div>
-      <div class="box">
-        <h4>Oracle/MySQL</h4>
-      </div>
-      <div class="box">
-        <h4>HTML/CSS/Javascript</h4>
+      <div th:each="skill : ${skills.split(',')}">
+        <div class="box">
+          <h4 th:text="${skill.trim()}">Umiejętność</h4>
+        </div>
       </div>
     </div>
 
     <div class="about interest">
       <h2 class="title2">Zainteresowania</h2>
       <ul>
-        <li><i class="fa fa-futbol-o" aria-hidden="true"></i> Piłka nożna</li>
-        <li><i class="fa fa-cutlery" aria-hidden="true"></i> Gotowanie</li>
-        <li><i class="fa fa-car" aria-hidden="true"></i> Formuła 1</li>
-        <li><i class="fa fa-code" aria-hidden="true"></i> Kodowanie</li>
+        <li th:each="interest : ${interests.split(',')}" th:text="${interest.trim()}">Zainteresowanie</li>
       </ul>
     </div>
   </div>

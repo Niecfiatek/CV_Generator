@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.json.JSONObject;
 
@@ -27,17 +31,33 @@ public class ControllerCV {
             @RequestParam String experience,
             @RequestParam String education,
             @RequestParam String skills,
+            @RequestParam String interests,
             Model model
     ) {
+        String[] experienceLines = experience.split("\\r?\\n");
+        List<Map<String, String>> parsedExperiences = new ArrayList<>();
+
+        for (String line : experienceLines) {
+            String[] parts = line.split(",");
+            if (parts.length == 3) {
+                Map<String, String> exp = new HashMap<>();
+                exp.put("years", parts[0].trim());
+                exp.put("company", parts[1].trim());
+                exp.put("position", parts[2].trim());
+                parsedExperiences.add(exp);
+            }
+        }
+
         String prompt = String.format(
                 "Na podstawie poniższych informacji wygeneruj krótki opis profilu zawodowego (2-3 zdania) do CV. " +
                         "Opis ma być konkretny i zawierać te dane w treści. Bez pustych frazesów i pustych określeń typu 'ambitny', 'zaangażowany', 'dynamiczne środowisko' itp.\n\n" +
                         "Imię: %s\n" +
                         "Doświadczenie zawodowe: %s\n" +
                         "Wykształcenie: %s\n" +
-                        "Umiejętności: %s\n\n" +
-                        "Zwróć tylko gotowy opis bez nagłówków.",
-                name, experience, education, skills);
+                        "Umiejętności: %s\n" +
+                        "Zainteresowania: %s\n\n" +
+                        "Zwróć tylko gotowy opis bez nagłówków w języku polskim.",
+                name, experience, education, skills, interests);
 
         String profileDescription = askOllama(prompt);
 
@@ -45,10 +65,11 @@ public class ControllerCV {
         model.addAttribute("email", email);
         model.addAttribute("phone", phone);
         model.addAttribute("adres", adres);
-        model.addAttribute("experience", experience);
+        model.addAttribute("experienceList", parsedExperiences);
         model.addAttribute("education", education);
         model.addAttribute("skills", skills);
         model.addAttribute("profile", profileDescription);
+        model.addAttribute("interests", interests);
 
         return "cv";
     }

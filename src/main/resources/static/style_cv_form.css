@@ -48,3 +48,33 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+.tooltip {
+    position: relative;
+    display: block; /* zamiast inline-block */
+    cursor: help;
+    width: 100%; /* żeby tooltip container zajmował całą szerokość pola */
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 280px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 0;  /* zmienione z 50% */
+    /* margin-left usunięte */
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 13px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

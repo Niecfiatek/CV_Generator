@@ -29,7 +29,6 @@ public class ControllerCV {
             @RequestParam String skills,
             Model model
     ) {
-        // Generowanie opisu do sekcji "Profil"
         String prompt = String.format(
                 "Na podstawie poniższych informacji wygeneruj krótki opis profilu zawodowego (2-3 zdania) do CV. " +
                         "Opis ma być konkretny i zawierać te dane w treści. Bez pustych frazesów i pustych określeń typu 'ambitny', 'zaangażowany', 'dynamiczne środowisko' itp.\n\n" +
@@ -40,11 +39,8 @@ public class ControllerCV {
                         "Zwróć tylko gotowy opis bez nagłówków.",
                 name, experience, education, skills);
 
-
-
         String profileDescription = askOllama(prompt);
 
-        // Przekazanie danych do widoku
         model.addAttribute("name", name);
         model.addAttribute("email", email);
         model.addAttribute("phone", phone);
@@ -77,7 +73,6 @@ public class ControllerCV {
             try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
                 String line;
                 while ((line = br.readLine()) != null) {
-                    // Parsujemy każdą linijkę jako JSON i wyciągamy tylko "response"
                     if (line.contains("\"response\"")) {
                         JSONObject responseLine = new JSONObject(line);
                         fullResponse.append(responseLine.getString("response"));
@@ -92,5 +87,4 @@ public class ControllerCV {
             return "Nie udało się wygenerować profilu.";
         }
     }
-
 }

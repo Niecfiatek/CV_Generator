@@ -28,13 +28,13 @@
           <span class="icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
           <span class="text" th:text="${email}">email@gmail.com</span>
         </li>
-        <li>
+        <li th:if="${not #strings.isEmpty(website)}">
           <span class="icon"><i class="fa fa-globe" aria-hidden="true"></i></span>
-          <span class="text">www.mywebsite.com</span>
+          <span class="text" th:text="${website}">www.mywebsite.com</span>
         </li>
-        <li>
+        <li th:if="${not #strings.isEmpty(linkedin)}">
           <span class="icon"><i class="fa fa-linkedin" aria-hidden="true"></i></span>
-          <span class="text">www.linkedin.com</span>
+          <span class="text" th:text="${linkedin}">www.linkedin.com</span>
         </li>
         <li>
           <span class="icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
@@ -46,20 +46,10 @@
     <div class="contactInfo education">
       <h3 class="title">Edukacja</h3>
       <ul>
-        <li>
-          <h5>Rok_start - Rok_koniec</h5>
-          <h4>Kierunke studiów/Profil klasy</h4>
-          <h4 th:text="${education}">Uczelnia/Szkoła</h4>
-        </li>
-        <li>
-          <h5>Rok_start - Rok_koniec</h5>
-          <h4>Kierunke studiów/Profil klasy</h4>
-          <h4>Uczelnia/Szkoła</h4>
-        </li>
-        <li>
-          <h5>Rok_start - Rok_koniec</h5>
-          <h4>Kierunke studiów/Profil klasy</h4>
-          <h4>Uczelnia/Szkoła</h4>
+        <li th:each="edu : ${educationList}">
+          <h5 th:text="${edu.years}">Rok_start - Rok_koniec</h5>
+          <h4 th:text="${edu.degree}">Kierunek studiów/Profil klasy</h4>
+          <h4 th:text="${edu.institution}">Uczelnia/Szkoła</h4>
         </li>
       </ul>
     </div>
@@ -67,9 +57,9 @@
     <div class="contactInfo language">
       <h3 class="title">Języki</h3>
       <ul>
-        <li><span class="text">Angielski - Zaawansowany</span></li>
-        <li><span class="text">Niemiecki - Średnio - zaawansowany</span></li>
-        <li><span class="text">Francuski - Do dupy</span></li>
+        <li th:each="lang : ${languagesList}">
+          <span class="text" th:text="${lang}">Język - poziom</span>
+        </li>
       </ul>
     </div>
   </div>

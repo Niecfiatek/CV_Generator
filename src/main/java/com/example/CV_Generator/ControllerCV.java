@@ -28,8 +28,11 @@ public class ControllerCV {
             @RequestParam String email,
             @RequestParam String phone,
             @RequestParam String adres,
+            @RequestParam(required = false) String website,
+            @RequestParam(required = false) String linkedin,
             @RequestParam String experience,
             @RequestParam String education,
+            @RequestParam String languages,
             @RequestParam String skills,
             @RequestParam String interests,
             Model model
@@ -45,6 +48,26 @@ public class ControllerCV {
                 exp.put("company", parts[1].trim());
                 exp.put("position", parts[2].trim());
                 parsedExperiences.add(exp);
+            }
+        }
+
+        List<String> parsedLanguages = new ArrayList<>();
+        String[] languageLines = languages.split("\\r?\\n");
+        for (String line : languageLines) {
+            parsedLanguages.add(line.trim());
+        }
+
+        String[] educationLines = education.split("\\r?\\n");
+        List<Map<String, String>> parsedEducation = new ArrayList<>();
+
+        for (String line : educationLines) {
+            String[] parts = line.split(",");
+            if (parts.length == 3) {
+                Map<String, String> edu = new HashMap<>();
+                edu.put("years", parts[0].trim());
+                edu.put("degree", parts[1].trim());
+                edu.put("institution", parts[2].trim());
+                parsedEducation.add(edu);
             }
         }
 
@@ -65,8 +88,11 @@ public class ControllerCV {
         model.addAttribute("email", email);
         model.addAttribute("phone", phone);
         model.addAttribute("adres", adres);
+        model.addAttribute("website", website != null ? website : "");
+        model.addAttribute("linkedin", linkedin != null ? linkedin : "");
         model.addAttribute("experienceList", parsedExperiences);
-        model.addAttribute("education", education);
+        model.addAttribute("educationList", parsedEducation);
+        model.addAttribute("languagesList", parsedLanguages);
         model.addAttribute("skills", skills);
         model.addAttribute("profile", profileDescription);
         model.addAttribute("interests", interests);

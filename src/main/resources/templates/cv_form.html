@@ -13,6 +13,9 @@
         <input type="text" name="adres" placeholder="Adres zamieszkania" required>
         <input type="text" name="phone" placeholder="Telefon" required>
 
+        <input type="text" name="website" placeholder="Strona internetowa (opcjonalnie)">
+        <input type="text" name="linkedin" placeholder="Profil LinkedIn (opcjonalnie)">
+
         <div class="tooltip">
             <textarea name="experience" placeholder="Doświadczenie zawodowe" required></textarea>
             <span class="tooltiptext">
@@ -20,9 +23,20 @@
         </span>
         </div>
 
-        <textarea name="education" placeholder="Wykształcenie" required></textarea>
+        <div class="tooltip">
+            <textarea name="education" placeholder="Wykształcenie" required></textarea>
+            <span class="tooltiptext">
+                Format każdej pozycji: rok_start - rok_koniec, kierunek/profil, uczelnia/szkoła
+                Przykład: 2010-2014, Informatyka, Politechnika Warszawska
+            </span>
+        </div>
         <textarea name="skills" placeholder="Umiejętności" required></textarea>
-        <textarea name="languages" placeholder="Języki" required></textarea>
+        <div class="tooltip">
+            <textarea name="languages" placeholder="Języki" required></textarea>
+            <span class="tooltiptext">
+                język - poziom,
+            </span>
+        </div>
         <textarea name="interests" placeholder="Zainteresowania" required></textarea>
         <button type="submit">Zapisz CV</button>
     </form>

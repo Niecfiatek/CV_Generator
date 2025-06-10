@@ -43,10 +43,26 @@ public class ControllerCV {
         for (String line : experienceLines) {
             String[] parts = line.split(",");
             if (parts.length == 3) {
+                String years = parts[0].trim();
+                String company = parts[1].trim();
+                String position = parts[2].trim();
+
+                // prompt do wygenerowania opisu pracy
+                String jobDescPrompt = String.format(
+                        "Na podstawie poniższych danych wygeneruj 1-2 zdaniowy konkretny opis obowiązków zawodowych w tej roli:\n\n" +
+                                "Okres: %s\nFirma: %s\nStanowisko: %s\n\n" +
+                                "Opis w języku polskim, konkretny, bez ogólników ani pustych sformułowań.",
+                        years, company, position
+                );
+
+                String jobDescription = askOllama(jobDescPrompt);
+
                 Map<String, String> exp = new HashMap<>();
-                exp.put("years", parts[0].trim());
-                exp.put("company", parts[1].trim());
-                exp.put("position", parts[2].trim());
+                exp.put("years", years);
+                exp.put("company", company);
+                exp.put("position", position);
+                exp.put("description", jobDescription);
+
                 parsedExperiences.add(exp);
             }
         }

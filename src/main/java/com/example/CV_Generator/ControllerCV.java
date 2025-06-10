@@ -47,11 +47,10 @@ public class ControllerCV {
                 String company = parts[1].trim();
                 String position = parts[2].trim();
 
-                // prompt do wygenerowania opisu pracy
                 String jobDescPrompt = String.format(
-                        "Na podstawie poniższych danych wygeneruj 1-2 zdaniowy konkretny opis obowiązków zawodowych w tej roli:\n\n" +
+                        "Na podstawie poniższych danych wygeneruj jedno zdaniowy krótki opis obowiązków zawodowych w tej roli:\n\n" +
                                 "Okres: %s\nFirma: %s\nStanowisko: %s\n\n" +
-                                "Opis w języku polskim, konkretny, bez ogólników ani pustych sformułowań.",
+                                "Opis w języku polskim, konkretny, wymień po przecinku, maksymalnie 180 znaków.",
                         years, company, position
                 );
 
@@ -127,6 +126,7 @@ public class ControllerCV {
             JSONObject json = new JSONObject();
             json.put("model", "llama3");
             json.put("prompt", prompt);
+            json.put("stream", false);
 
             try (OutputStream os = connection.getOutputStream()) {
                 os.write(json.toString().getBytes("utf-8"));
